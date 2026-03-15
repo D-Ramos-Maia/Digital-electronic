@@ -17,7 +17,7 @@ module tb_moore_101;
 
     initial begin
         $dumpfile("wave.vcd");
-        $dumpvars(0, tb);
+        $dumpvars(0, tb_moore_101);
 
         clk = 0;
         rst_n = 0;
