@@ -1,0 +1,40 @@
+module tb_mealy_101;
+
+    logic clk;
+    logic rst_n;
+    logic data_in;
+    logic sequence_detected;
+
+    // Instância do DUT
+    mealy_101 dut (
+        .clk(clk),
+        .rst_n(rst_n),
+        .data_in(data_in),
+        .sequence_detected(sequence_detected)
+    );
+
+    // Geração do clock (período = 10)
+    always #5 clk = ~clk;
+
+    initial begin
+        $dumpfile("wave.vcd");
+        $dumpvars(0, tb_mealy_101);
+
+        clk = 0;
+        rst_n = 0;
+        data_in = 0;
+
+        // libera reset
+        #10 rst_n = 1;
+
+        // sequência 10101
+        #10 data_in = 1;
+        #10 data_in = 0;
+        #10 data_in = 1;
+        #10 data_in = 0;
+        #10 data_in = 1;
+
+        #20 $finish;
+    end
+
+endmodule
